@@ -67,6 +67,8 @@ export type AppRoutes = {
   [K in string]: RouteFunction<K>;
 };
 
+import MedGemmaAnalysis from "@/components/MedGemma/MedGemmaAnalysis";
+
 const Routes: AppRoutes = {
   "/": () => <UserDashboard />,
   ...ConsultationRoutes,
@@ -76,6 +78,8 @@ const Routes: AppRoutes = {
   ...ScheduleRoutes,
   ...UserRoutes,
   ...OrganizationRoutes,
+
+  "/medgemma": () => <MedGemmaAnalysis />,
 
   "/session-expired": () => <SessionExpired />,
   "/not-found": () => <ErrorPage />,

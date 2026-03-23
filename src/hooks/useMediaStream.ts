@@ -10,6 +10,7 @@ interface useMediaStreamProps {
 type MediaStreamState = "accepted" | "denied" | "loading";
 
 const getCameraDevices = async () => {
+  if (!navigator.mediaDevices?.enumerateDevices) return [];
   return await navigator.mediaDevices.enumerateDevices();
 };
 
@@ -24,13 +25,17 @@ export const useMediaStream = ({
     useState<MediaStreamState>("loading");
 
   useEffect(() => {
-    navigator.mediaDevices.addEventListener("devicechange", getCameraDevices);
+    if (navigator.mediaDevices?.addEventListener) {
+      navigator.mediaDevices.addEventListener("devicechange", getCameraDevices);
+    }
 
     return () => {
-      navigator.mediaDevices.removeEventListener(
-        "devicechange",
-        getCameraDevices,
-      );
+      if (navigator.mediaDevices?.removeEventListener) {
+        navigator.mediaDevices.removeEventListener(
+          "devicechange",
+          getCameraDevices,
+        );
+      }
     };
   }, [getCameraDevices]);
 

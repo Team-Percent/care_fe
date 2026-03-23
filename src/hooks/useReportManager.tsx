@@ -44,6 +44,7 @@ export interface UseReportManagerResult {
   archiveReport: (report: ReportRead) => void;
   refetch: () => void;
   Dialogs: React.ReactNode;
+  totalCount: number;
 }
 
 export default function useReportManager({
@@ -86,6 +87,8 @@ export default function useReportManager({
         associating_id: associatingId,
         upload_completed: "true",
         report_type: reportType,
+        limit: Number(qParams?.limit || 15),
+        offset: (Number(qParams?.page || 1) - 1) * Number(qParams?.limit || 15),
       },
     }),
     enabled: enabled && !!associatingId,
@@ -332,5 +335,6 @@ export default function useReportManager({
     archiveReport,
     refetch,
     Dialogs,
+    totalCount: reportsData?.count || 0,
   };
 }

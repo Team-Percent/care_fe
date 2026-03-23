@@ -192,7 +192,7 @@ export const DrawingPage = ({
         name: qParams.name,
         associating_id: associatingId,
         limit: resultsPerPage,
-        offset: (qParams.page - 1) * resultsPerPage,
+        offset: ((qParams.page || 1) - 1) * resultsPerPage,
       },
     }),
     enabled: canAccess,
@@ -222,7 +222,7 @@ export const DrawingPage = ({
         <Loading />
       ) : (
         <>
-          {data?.results.length === 0 ? (
+          {(data?.results || []).length === 0 ? (
             <div className="flex flex-col items-center justify-center p-8 text-gray-500">
               <CareIcon icon="l-image" className="text-4xl mb-2" />
               <p className="text-lg font-medium">{t("no_drawings_so_far")}</p>
@@ -232,7 +232,7 @@ export const DrawingPage = ({
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 ml-1">
-              {data?.results.map((drawing) => (
+              {(data?.results || []).map((drawing) => (
                 <Card
                   key={drawing.id}
                   className="overflow-hidden hover:shadow-md transition-shadow duration-200 group cursor-pointer"

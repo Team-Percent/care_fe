@@ -64,6 +64,7 @@ export function ReportSubTab({ associatingId, reportType }: ReportTabProps) {
     archiveReport,
     refetch,
     Dialogs,
+    totalCount,
   } = useReportManager({
     associatingId,
     enabled: true,
@@ -395,7 +396,7 @@ export function ReportSubTab({ associatingId, reportType }: ReportTabProps) {
       {/* Pagination */}
       {filteredReports.length > 0 && (
         <div className="flex justify-center p-4">
-          <Pagination totalCount={filteredReports.length} />
+          <Pagination totalCount={totalCount} />
         </div>
       )}
 

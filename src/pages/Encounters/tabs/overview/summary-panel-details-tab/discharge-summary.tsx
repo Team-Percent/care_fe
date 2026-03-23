@@ -26,7 +26,7 @@ export const DischargeDetails = () => {
 
   if (!encounter) return <CardListSkeleton count={1} />;
 
-  const dischargeStatus = encounter.status_history.history.find(
+  const dischargeStatus = encounter.status_history?.history?.find(
     (status) => status.status === "discharged",
   );
 
